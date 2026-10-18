@@ -9,7 +9,20 @@ A Flask + MySQL web app where users book home services (plumbing, electrical, AC
 - Ratings & reviews after job completion
 - In-app notifications for users and providers
 - Admin panel: users, providers, bookings
+## 📸 Screenshots
 
+| Home | Services |
+|---|---|
+| ![Home](screenshots/home.png) | ![Services](screenshots/services.png) |
+
+| User Dashboard | Provider Dashboard |
+|---|---|
+| ![User Dashboard](screenshots/user-dashboard.png) | ![Provider Dashboard](screenshots/provider-dashboard.png) |
+
+### Admin Dashboard
+![Admin Dashboard](screenshots/admin-dashboard.png)
+
+*(Screenshots show sample demo data.)*
 ## 🛠 Tech Stack
 Python · Flask · MySQL · Jinja2 · HTML/CSS
 
