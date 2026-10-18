@@ -1,0 +1,58 @@
+{% extends 'base.html' %}
+{% block title %}Provider Registration{% endblock %}
+{% block content %}
+<div class="form-card">
+    <div class="form-header">
+        <h2>🛠️ Register as Provider</h2>
+        <p>Fill all details carefully. Aadhar verification is mandatory.</p>
+    </div>
+    <form method="POST" enctype="multipart/form-data">
+
+        <div class="form-section">Personal Details</div>
+
+        <label>Full Name *</label>
+        <input type="text" name="name" placeholder="Your full name" required>
+
+        <label>Email *</label>
+        <input type="email" name="email" placeholder="your@email.com" required>
+
+        <label>Phone Number *</label>
+        <input type="text" name="phone" placeholder="10-digit mobile number" required>
+
+        <label>Password *</label>
+        <input type="password" name="password" placeholder="Create a strong password" required>
+
+        <div class="form-section">Verification</div>
+
+        <label>Aadhar Number * <span class="hint">(12 digits)</span></label>
+        <input type="text" name="aadhar_number" placeholder="XXXX XXXX XXXX" maxlength="12" required>
+
+        <label>Profile Photo *</label>
+        <input type="file" name="photo" accept="image/*" required>
+        <small class="hint">Upload a clear photo of yourself (JPG/PNG)</small>
+
+        <div class="form-section">Service Details</div>
+
+        <label>Service Type *</label>
+        <select name="service_type" required>
+            <option value="">-- Select Service --</option>
+            <option value="Plumbing">🔧 Plumbing</option>
+            <option value="Electrical">⚡ Electrical</option>
+            <option value="AC Servicing">❄️ AC Servicing</option>
+            <option value="House Cleaning">🧹 House Cleaning</option>
+            <option value="Carpentry">🪚 Carpentry</option>
+            <option value="Painting">🎨 Painting</option>
+        </select>
+
+        <label>Service Location / Area *</label>
+        <input type="text" name="location" placeholder="e.g. Anna Nagar, Chennai" required>
+
+        <button type="submit" class="btn btn-primary" style="margin-top:20px; width:100%;">
+            Register Now
+        </button>
+    </form>
+    <p style="text-align:center; margin-top:16px;">
+        Already registered? <a href="{{ url_for('provider_login') }}">Login here</a>
+    </p>
+</div>
+{% endblock %}

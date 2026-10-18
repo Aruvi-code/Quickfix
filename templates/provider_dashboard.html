@@ -1,0 +1,100 @@
+{% extends 'base.html' %}
+{% block title %}Provider Dashboard{% endblock %}
+{% block content %}
+
+{% if notifications %}
+<div class="notification-box">
+    <h4>🔔 Notifications</h4>
+    {% for n in notifications %}
+        <p class="notif-item">{{ n.message }}</p>
+    {% endfor %}
+</div>
+{% endif %}
+
+<div class="dashboard-header">
+    <div>
+        <h2>Welcome, {{ session.get('provider_name') }} 👋</h2>
+        {% if rating_info and rating_info.avg_rating %}
+        <p class="rating-display">
+            ⭐ {{ rating_info.avg_rating }} / 5 &nbsp;|&nbsp; {{ rating_info.total_ratings }} ratings
+        </p>
+        {% else %}
+        <p class="rating-display">⭐ No ratings yet</p>
+        {% endif %}
+    </div>
+</div>
+
+<!-- Available Bookings -->
+<div class="section-card">
+    <h3>🆕 Available Bookings</h3>
+    {% if available_bookings %}
+    <div class="table-wrap">
+    <table class="data-table">
+        <tr>
+            <th>Service</th>
+            <th>Customer</th>
+            <th>Requested On</th>
+            <th>Action</th>
+        </tr>
+        {% for b in available_bookings %}
+        <tr>
+            <td>{{ b.service_name }}</td>
+            <td>{{ b.user_name }}</td>
+            <td>{{ b.booking_date.strftime('%d %b %Y') if b.booking_date else '-' }}</td>
+            <td>
+                <a href="{{ url_for('provider_accept_booking', booking_id=b.id) }}"
+                   class="btn btn-small">✅ Accept</a>
+            </td>
+        </tr>
+        {% endfor %}
+    </table>
+    </div>
+    {% else %}
+    <div class="empty-state"><p>No new bookings available right now.</p></div>
+    {% endif %}
+</div>
+
+<!-- My Assigned Bookings -->
+<div class="section-card">
+    <h3>📋 My Assigned Bookings</h3>
+    {% if my_bookings %}
+    <div class="table-wrap">
+    <table class="data-table">
+        <tr>
+            <th>Service</th>
+            <th>Customer</th>
+            <th>Phone</th>
+            <th>Payment</th>
+            <th>Status</th>
+            <th>Action</th>
+        </tr>
+        {% for b in my_bookings %}
+        <tr>
+            <td>{{ b.service_name }}</td>
+            <td>{{ b.user_name }}</td>
+            <td>{{ b.phone or '-' }}</td>
+            <td>
+                <span class="payment-badge payment-{{ b.payment_method }}">
+                    {{ '💵 Cash' if b.payment_method == 'cash' else '📱 Online' }}
+                </span>
+            </td>
+            <td><span class="status status-{{ b.status }}">{{ b.status }}</span></td>
+            <td>
+                {% if b.status == 'accepted' %}
+                <a href="{{ url_for('provider_complete_booking', booking_id=b.id) }}"
+                   class="btn btn-small btn-complete">✔ Complete</a>
+                {% elif b.status == 'completed' %}
+                <span class="rated-label">✅ Done</span>
+                {% else %}
+                -
+                {% endif %}
+            </td>
+        </tr>
+        {% endfor %}
+    </table>
+    </div>
+    {% else %}
+    <div class="empty-state"><p>No bookings assigned yet.</p></div>
+    {% endif %}
+</div>
+{% endblock %}

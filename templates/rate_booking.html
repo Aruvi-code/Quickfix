@@ -1,0 +1,34 @@
+{% extends 'base.html' %}
+{% block title %}Rate Service - QuickFix{% endblock %}
+{% block content %}
+<div class="form-card">
+    <div class="form-header">
+        <h2>⭐ Rate Your Experience</h2>
+        <p>Your feedback helps others find the best providers</p>
+    </div>
+
+    <div class="service-summary">
+        <p><strong>Service:</strong> {{ booking.service_name }}</p>
+        <p><strong>Provider:</strong> {{ booking.provider_name }}</p>
+    </div>
+
+    <form method="POST">
+        <label>Rating *</label>
+        <div class="star-options">
+            {% for i in range(1, 6) %}
+            <label class="star-label">
+                <input type="radio" name="stars" value="{{ i }}" required>
+                <span>{{ i }} ⭐</span>
+            </label>
+            {% endfor %}
+        </div>
+
+        <label style="margin-top:16px;">Review (optional)</label>
+        <textarea name="review" rows="4" placeholder="Share your experience..."></textarea>
+
+        <button type="submit" class="btn btn-primary" style="width:100%; margin-top:20px;">
+            Submit Rating
+        </button>
+    </form>
+</div>
+{% endblock %}

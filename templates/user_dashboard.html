@@ -1,0 +1,64 @@
+{% extends 'base.html' %}
+{% block title %}My Dashboard{% endblock %}
+{% block content %}
+
+{% if notifications %}
+<div class="notification-box">
+    <h4>🔔 Notifications</h4>
+    {% for n in notifications %}
+        <p class="notif-item">{{ n.message }}</p>
+    {% endfor %}
+</div>
+{% endif %}
+
+<div class="dashboard-header">
+    <h2>Welcome, {{ session.get('user_name') }} 👋</h2>
+    <a href="{{ url_for('services') }}" class="btn btn-primary">+ Book New Service</a>
+</div>
+
+<h3>Your Bookings</h3>
+{% if bookings %}
+<div class="table-wrap">
+<table class="data-table">
+    <tr>
+        <th>Service</th>
+        <th>Price</th>
+        <th>Provider</th>
+        <th>Location</th>
+        <th>Payment</th>
+        <th>Status</th>
+        <th>Booked On</th>
+        <th>Action</th>
+    </tr>
+    {% for b in bookings %}
+    <tr>
+        <td>{{ b.service_name }}</td>
+        <td>₹{{ b.price }}</td>
+        <td>{{ b.provider_name or 'Not assigned yet' }}</td>
+        <td>{{ b.provider_location or '-' }}</td>
+        <td>
+            <span class="payment-badge payment-{{ b.payment_method }}">
+                {{ '💵 Cash' if b.payment_method == 'cash' else '📱 Online' }}
+            </span>
+        </td>
+        <td><span class="status status-{{ b.status }}">{{ b.status }}</span></td>
+        <td>{{ b.booking_date.strftime('%d %b %Y') if b.booking_date else '-' }}</td>
+        <td>
+            {% if b.status == 'completed' and not b.rated %}
+                <a href="{{ url_for('rate_booking', booking_id=b.id) }}" class="btn btn-small btn-rate">⭐ Rate</a>
+            {% elif b.rated %}
+                <span class="rated-label">✅ Rated</span>
+            {% else %}
+                <span class="waiting-label">⏳ Waiting</span>
+            {% endif %}
+        </td>
+    </tr>
+    {% endfor %}
+</table>
+</div>
+{% else %}
+<div class="empty-state">
+    <p>🛒 No bookings yet. <a href="{{ url_for('services') }}">Book your first service!</a></p>
+</div>
+{% endif %}
+{% endblock %}

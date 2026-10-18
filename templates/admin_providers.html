@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+{% block title %}All Providers - Admin{% endblock %}
+{% block content %}
+<h2>🛠️ All Service Providers</h2>
+<div class="table-wrap">
+<table class="data-table">
+    <tr><th>Photo</th><th>Name</th><th>Email</th><th>Service</th><th>Location</th><th>Aadhar</th><th>Rating</th><th>Joined</th></tr>
+    {% for p in providers %}
+    <tr>
+        <td>
+            {% if p.photo %}
+            <img src="{{ url_for('static', filename='uploads/' + p.photo) }}" class="provider-thumb">
+            {% else %}
+            👤
+            {% endif %}
+        </td>
+        <td>{{ p.name }}</td>
+        <td>{{ p.email }}</td>
+        <td>{{ p.service_type }}</td>
+        <td>{{ p.location or '-' }}</td>
+        <td>{{ p.aadhar_number or '-' }}</td>
+        <td>{{ p.avg_rating or 'No ratings' }} {% if p.avg_rating %}⭐{% endif %}</td>
+        <td>{{ p.created_at }}</td>
+    </tr>
+    {% endfor %}
+</table>
+</div>
+<a href="{{ url_for('admin_dashboard') }}" class="btn btn-secondary" style="margin-top:16px; display:inline-block;">← Back</a>
+{% endblock %}

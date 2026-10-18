@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+{% block title %}Services - QuickFix{% endblock %}
+{% block content %}
+<div class="page-header">
+    <h2>🛠️ Our Services</h2>
+    <p>Professional home services at your doorstep</p>
+</div>
+
+<div class="service-grid">
+    {% for s in services %}
+    <div class="service-card">
+        <div class="service-dept">{{ s.department or 'General' }}</div>
+        <h3>{{ s.name }}</h3>
+        <p class="service-desc">{{ s.description }}</p>
+
+        {% if s.equipment %}
+        <div class="equipment-box">
+            <strong>🧰 Equipment Used:</strong>
+            <p>{{ s.equipment }}</p>
+        </div>
+        {% endif %}
+
+        <div class="service-footer">
+            <span class="price">₹{{ s.price }}</span>
+            <a href="{{ url_for('book_service', service_id=s.id) }}" class="btn btn-primary btn-small">
+                Book Now
+            </a>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+{% endblock %}

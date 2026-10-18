@@ -1,0 +1,44 @@
+{% extends 'base.html' %}
+{% block title %}Booking Confirmed - QuickFix{% endblock %}
+{% block content %}
+<div class="confirmation-card">
+    <div class="confirm-icon">🎉</div>
+    <h2>Booking Confirmed!</h2>
+    <p>Your booking has been placed successfully. A provider will accept it shortly.</p>
+
+    <div class="confirm-details">
+        <div class="confirm-row">
+            <span>Service</span>
+            <strong>{{ booking.service_name }}</strong>
+        </div>
+        <div class="confirm-row">
+            <span>Amount</span>
+            <strong>₹{{ booking.price }}</strong>
+        </div>
+        <div class="confirm-row">
+            <span>Payment</span>
+            <strong>{{ '💵 Cash on Service' if booking.payment_method == 'cash' else '📱 Online Payment' }}</strong>
+        </div>
+        <div class="confirm-row">
+            <span>Status</span>
+            <strong><span class="status status-pending">⏳ Pending</span></strong>
+        </div>
+        <div class="confirm-row">
+            <span>Booking ID</span>
+            <strong>#{{ booking.id }}</strong>
+        </div>
+    </div>
+
+    {% if booking.equipment %}
+    <div class="equipment-box" style="margin-top:16px;">
+        <strong>🧰 Equipment the provider will bring:</strong>
+        <p>{{ booking.equipment }}</p>
+    </div>
+    {% endif %}
+
+    <div style="margin-top:24px;">
+        <a href="{{ url_for('dashboard') }}" class="btn btn-primary">Go to Dashboard</a>
+        <a href="{{ url_for('services') }}" class="btn btn-secondary" style="margin-left:10px;">Book Another</a>
+    </div>
+</div>
+{% endblock %}

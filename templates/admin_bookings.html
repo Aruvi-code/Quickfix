@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+{% block title %}All Bookings - Admin{% endblock %}
+{% block content %}
+<h2>📋 All Bookings</h2>
+<div class="table-wrap">
+<table class="data-table">
+    <tr><th>ID</th><th>User</th><th>Service</th><th>Provider</th><th>Payment</th><th>Status</th><th>Date</th></tr>
+    {% for b in bookings %}
+    <tr>
+        <td>#{{ b.id }}</td>
+        <td>{{ b.user_name }}</td>
+        <td>{{ b.service_name }}</td>
+        <td>{{ b.provider_name or 'Unassigned' }}</td>
+        <td>{{ '💵 Cash' if b.payment_method == 'cash' else '📱 Online' }}</td>
+        <td><span class="status status-{{ b.status }}">{{ b.status }}</span></td>
+        <td>{{ b.booking_date }}</td>
+    </tr>
+    {% endfor %}
+</table>
+</div>
+<a href="{{ url_for('admin_dashboard') }}" class="btn btn-secondary" style="margin-top:16px; display:inline-block;">← Back</a>
+{% endblock %}

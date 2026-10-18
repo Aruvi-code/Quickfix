@@ -1,0 +1,37 @@
+{% extends 'base.html' %}
+{% block title %}QuickFix - Home{% endblock %}
+{% block content %}
+<div class="hero">
+    <div class="hero-badge">🏆 Trusted by 1000+ customers</div>
+    <h1>Book trusted local services<br>in minutes</h1>
+    <p>Plumbing, electrical, cleaning, AC servicing, painting and more &mdash; all in one place.</p>
+    <div class="hero-buttons">
+        <a href="{{ url_for('services') }}" class="btn btn-primary">🔍 Browse Services</a>
+        <a href="{{ url_for('register') }}" class="btn btn-secondary">👤 Sign Up as User</a>
+        <a href="{{ url_for('provider_register') }}" class="btn btn-secondary">🛠️ Become a Provider</a>
+    </div>
+</div>
+
+<div class="features">
+    <div class="feature-card">
+        <div class="feature-icon">✅</div>
+        <h3>Verified Providers</h3>
+        <p>All providers are Aadhar verified and background checked.</p>
+    </div>
+    <div class="feature-card">
+        <div class="feature-icon">⭐</div>
+        <h3>Rated Services</h3>
+        <p>Real reviews from real customers for every service.</p>
+    </div>
+    <div class="feature-card">
+        <div class="feature-icon">💳</div>
+        <h3>Easy Payment</h3>
+        <p>Pay by cash or online — your choice, your comfort.</p>
+    </div>
+    <div class="feature-card">
+        <div class="feature-icon">🔔</div>
+        <h3>Live Notifications</h3>
+        <p>Get notified instantly when your booking is accepted or completed.</p>
+    </div>
+</div>
+{% endblock %}

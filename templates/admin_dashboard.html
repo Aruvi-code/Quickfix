@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+{% block title %}Admin Dashboard - QuickFix{% endblock %}
+{% block content %}
+<h2>🔐 Admin Dashboard</h2>
+<div class="stats-grid">
+    <div class="stat-card">
+        <h3>{{ user_count }}</h3>
+        <p>Total Users</p>
+        <a href="{{ url_for('admin_users') }}">View all →</a>
+    </div>
+    <div class="stat-card">
+        <h3>{{ provider_count }}</h3>
+        <p>Total Providers</p>
+        <a href="{{ url_for('admin_providers') }}">View all →</a>
+    </div>
+    <div class="stat-card">
+        <h3>{{ booking_count }}</h3>
+        <p>Total Bookings</p>
+        <a href="{{ url_for('admin_bookings') }}">View all →</a>
+    </div>
+    <div class="stat-card">
+        <h3>{{ pending_count }}</h3>
+        <p>Pending Bookings</p>
+        <a href="{{ url_for('admin_bookings') }}">View all →</a>
+    </div>
+</div>
+{% endblock %}

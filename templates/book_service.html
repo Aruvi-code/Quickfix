@@ -1,0 +1,43 @@
+{% extends 'base.html' %}
+{% block title %}Book Service - QuickFix{% endblock %}
+{% block content %}
+<div class="form-card">
+    <div class="form-header">
+        <h2>📋 Book Service</h2>
+        <p>Confirm your booking details below</p>
+    </div>
+
+    <div class="service-summary">
+        <h3>{{ service.name }}</h3>
+        <p>{{ service.description }}</p>
+        <p class="price">₹{{ service.price }}</p>
+        {% if service.equipment %}
+        <div class="equipment-box">
+            <strong>🧰 Equipment Used:</strong>
+            <p>{{ service.equipment }}</p>
+        </div>
+        {% endif %}
+    </div>
+
+    <form method="POST">
+        <label>Payment Method *</label>
+        <div class="payment-options">
+            <label class="payment-option">
+                <input type="radio" name="payment_method" value="cash" checked>
+                <span>💵 Cash on Service</span>
+            </label>
+            <label class="payment-option">
+                <input type="radio" name="payment_method" value="online">
+                <span>📱 Online Payment</span>
+            </label>
+        </div>
+
+        <button type="submit" class="btn btn-primary" style="width:100%; margin-top:20px;">
+            ✅ Confirm Booking
+        </button>
+        <a href="{{ url_for('services') }}" class="btn btn-secondary" style="width:100%; margin-top:10px; text-align:center; display:block;">
+            ← Back to Services
+        </a>
+    </form>
+</div>
+{% endblock %}
